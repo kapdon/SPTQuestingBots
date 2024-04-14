@@ -9,7 +9,7 @@ namespace SPTQuestingBots.Models
 {
     public class JobAssignment
     {
-        public Quest QuestAssignment { get; protected set; } = null;
+        public Quest0 QuestAssignment { get; protected set; } = null;
         public QuestObjective QuestObjectiveAssignment { get; protected set; } = null;
         public QuestObjectiveStep QuestObjectiveStepAssignment { get; protected set; } = null;
 
@@ -21,7 +21,7 @@ namespace SPTQuestingBots.Models
 
         }
 
-        public JobAssignment(Quest _quest, QuestObjective _objective, QuestObjectiveStep _step) : this()
+        public JobAssignment(Quest0 _quest, QuestObjective _objective, QuestObjectiveStep _step) : this()
         {
             QuestAssignment = _quest;
             QuestObjectiveAssignment = _objective;

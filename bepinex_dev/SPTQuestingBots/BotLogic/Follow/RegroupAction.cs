@@ -8,6 +8,8 @@ using SPTQuestingBots.BotLogic.HiveMind;
 using SPTQuestingBots.Controllers;
 using UnityEngine;
 
+// AIActionNodeAssigner = AIActionNodeAssigner;
+
 namespace SPTQuestingBots.BotLogic.Follow
 {
     internal class RegroupAction : BehaviorExtensions.GoToPositionAbstractAction
@@ -16,7 +18,7 @@ namespace SPTQuestingBots.BotLogic.Follow
 
         public RegroupAction(BotOwner _BotOwner) : base(_BotOwner, 100)
         {
-            SetBaseAction(GClass460.CreateNode(BotLogicDecision.simplePatrol, BotOwner));
+            SetBaseAction(AIActionNodeAssigner.CreateNode(BotLogicDecision.simplePatrol, BotOwner));
         }
 
         public override void Start()

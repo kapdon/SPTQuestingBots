@@ -14,6 +14,8 @@ using SPTQuestingBots.Controllers;
 using SPTQuestingBots.Helpers;
 using UnityEngine;
 
+using BotEventHandler = GClass603;
+
 namespace SPTQuestingBots.BotLogic
 {
     public class BotMonitor
@@ -237,7 +239,7 @@ namespace SPTQuestingBots.BotLogic
             }
 
             // If the raid is about to end, make the bot extract
-            float remainingRaidTime = Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRemainingRaidSeconds();
+            float remainingRaidTime = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.GetRemainingRaidSeconds();
             if (remainingRaidTime < ConfigController.Config.Questing.ExtractionRequirements.MustExtractTimeRemaining)
             {
                 LoggingController.LogInfo(botOwner.GetText() + " is ready to extract because the raid will be over in " + remainingRaidTime + " seconds.");
@@ -245,14 +247,14 @@ namespace SPTQuestingBots.BotLogic
             }
 
             // Ensure enough time has elapsed in the raid to prevent players from getting run-throughs
-            int minSurviveTime = Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.NewSurvivalTimeSeconds;
-            if (Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds() < minSurviveTime)
+            int minSurviveTime = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.NewSurvivalTimeSeconds;
+            if (StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds() < minSurviveTime)
             {
                 return false;
             }
 
             System.Random random = new System.Random();
-            float initialRaidTimeFraction = Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.RaidTimeRemainingFraction;
+            float initialRaidTimeFraction = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.RaidTimeRemainingFraction;
 
             // Select a random number of total quests the bot must complete before it's allowed to extract
             if (minTotalQuestsForExtract == int.MaxValue)

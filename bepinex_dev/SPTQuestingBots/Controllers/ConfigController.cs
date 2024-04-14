@@ -97,9 +97,9 @@ namespace SPTQuestingBots.Controllers
             return _templates.Templates;
         }
 
-        public static IEnumerable<Quest> GetCustomQuests(string locationID)
+        public static IEnumerable<Quest0> GetCustomQuests(string locationID)
         {
-            Quest[] standardQuests = new Quest[0];
+            Quest0[] standardQuests = new Quest0[0];
             string filename = GetLoggingPath() + "..\\quests\\standard\\" + locationID + ".json";
             if (File.Exists(filename))
             {
@@ -117,7 +117,7 @@ namespace SPTQuestingBots.Controllers
                 }
             }
 
-            Quest[] customQuests = new Quest[0];
+            Quest0[] customQuests = new Quest0[0];
             filename = GetLoggingPath() + "..\\quests\\custom\\" + locationID + ".json";
             if (File.Exists(filename))
             {
@@ -138,10 +138,39 @@ namespace SPTQuestingBots.Controllers
             return standardQuests.Concat(customQuests);
         }
 
+        private static string GetBackendUrl()
+        {
+            string[] args = Environment.GetCommandLineArgs();
+            if (args == null)
+                return null;
+
+            var beUrl = string.Empty;
+
+            foreach (string arg in args)
+            {
+                if (arg.Contains("BackendUrl"))
+                {
+                    string json = arg.Replace("-config=", string.Empty);
+                    dynamic result = JsonConvert.DeserializeObject(json);
+                    if (result != null)
+                        beUrl = result.BackendUrl;
+                    break;
+                }
+            }
+
+            return beUrl;
+        }
+
         public static string GetJson(string endpoint, string errorMessage)
         {
             string json = null;
             Exception lastException = null;
+
+            string backendUrl = GetBackendUrl();
+            bool backendHasTrailing = backendUrl.EndsWith(@"/");
+            bool endpointHasLeading = endpoint.StartsWith(@"/");
+            if (backendHasTrailing && endpointHasLeading)
+                endpoint = endpoint.Substring(1);
 
             // Sometimes server requests fail, and nobody knows why. If this happens, retry a few times.
             for (int i = 0; i < 5; i++)
@@ -194,7 +223,7 @@ namespace SPTQuestingBots.Controllers
                     }
                 }
 
-                obj = JsonConvert.DeserializeObject<T>(json, GClass1448.SerializerSettings);
+                obj = JsonConvert.DeserializeObject<T>(json, GClass1456.SerializerSettings);
 
                 return true;
             }

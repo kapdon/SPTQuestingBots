@@ -8,13 +8,15 @@ using EFT.UI;
 using HarmonyLib;
 using UnityEngine;
 
+using PathControllerClass = PathController;
+
 namespace SPTQuestingBots.Helpers
 {
     public static class BotPathingHelpers
     {
         private static FieldInfo pathControllerField = AccessTools.Field(typeof(BotMover), "_pathController");
-        private static FieldInfo pathPointsField = AccessTools.Field(typeof(GClass466), "vector3_0");
-        private static FieldInfo pathIndexField = AccessTools.Field(typeof(GClass466), "int_0");
+        private static FieldInfo pathPointsField = AccessTools.Field(typeof(GClass453), "vector3_0");
+        private static FieldInfo pathIndexField = AccessTools.Field(typeof(GClass453), "int_0");
 
         public static Vector3[] GetCurrentPath(this BotMover botMover)
         {

@@ -14,6 +14,8 @@ using SPTQuestingBots.Controllers;
 using SPTQuestingBots.Helpers;
 using UnityEngine;
 
+ using GClass134 = AbstractCreateNode;
+
 namespace SPTQuestingBots.BehaviorExtensions
 {
     public abstract class CustomLogicDelayedUpdate : CustomLogic
@@ -26,7 +28,7 @@ namespace SPTQuestingBots.BehaviorExtensions
         private Stopwatch actionElapsedTime = new Stopwatch();
 
         // Find by CreateNode(BotLogicDecision type, BotOwner bot) -> case BotLogicDecision.simplePatrol -> private gclass object
-        private GClass329 baseSteeringLogic = new GClass329();
+        private GClass333 baseSteeringLogic = new GClass333();
 
         protected double ActionElpasedTime => actionElapsedTime.ElapsedMilliseconds / 1000.0;
 

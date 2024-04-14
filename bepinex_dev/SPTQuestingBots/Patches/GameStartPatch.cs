@@ -5,13 +5,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Aki.Reflection.Patching;
+using StayInTarkov;
 using Comfort.Common;
 using EFT;
 using HarmonyLib;
 using SPTQuestingBots.Components.Spawning;
 using SPTQuestingBots.Controllers;
 using UnityEngine;
+
+using BotWaveDataClass = BotSpawnWave;
 
 namespace SPTQuestingBots.Patches
 {

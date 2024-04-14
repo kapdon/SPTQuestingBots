@@ -4,13 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Aki.Reflection.Patching;
+using StayInTarkov;
 using EFT;
 using HarmonyLib;
 using SPTQuestingBots.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
-using StupidPathCalculatorClass = GClass423;
+using StupidPathCalculatorClass = GClass428;
+using PathControllerClass = PathController;
 
 namespace SPTQuestingBots.Patches
 {

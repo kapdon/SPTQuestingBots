@@ -42,16 +42,16 @@ namespace SPTQuestingBots.Components
                 throw new ArgumentNullException(nameof(airdropPosition));
             }
 
-            if (!Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
+            if (!StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
             {
                 LoggingController.LogError("Airdrop chaser quest cannot be added when the raid is not in-progress");
                 return;
             }
 
-            Models.Quest airdopChaserQuest = createGoToPositionQuest(airdropPosition, "Airdrop Chaser", ConfigController.Config.Questing.BotQuests.AirdropChaser);
+            Models.Quest0 airdopChaserQuest = createGoToPositionQuest(airdropPosition, "Airdrop Chaser", ConfigController.Config.Questing.BotQuests.AirdropChaser);
             if (airdopChaserQuest != null)
             {
-                float raidET = Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds();
+                float raidET = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds();
                 
                 airdopChaserQuest.MaxRaidET = raidET + ConfigController.Config.Questing.BotQuests.AirdropBotInterestTime;
                 BotJobAssignmentFactory.AddQuest(airdopChaserQuest);
@@ -77,7 +77,7 @@ namespace SPTQuestingBots.Components
 
                     foreach (RawQuestClass questTemplate in allQuestTemplates)
                     {
-                        Quest quest = new Quest(questTemplate);
+                        Quest0 quest = new Quest0(questTemplate);
                         QuestSettingsConfig.ApplyQuestSettingsFromConfig(quest, ConfigController.Config.Questing.BotQuests.EFTQuests);
                         quest.PMCsOnly = true;
                         BotJobAssignmentFactory.AddQuest(quest);
@@ -99,7 +99,7 @@ namespace SPTQuestingBots.Components
 
                 // Create a quest where the bots wanders to various spawn points around the map. This was implemented as a stop-gap for maps with few other quests.
                 SpawnPointParams[] allSpawnPoints = Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.SpawnPointParams;
-                Quest spawnPointQuest = createSpawnPointQuest(allSpawnPoints, "Spawn Point Wander", ConfigController.Config.Questing.BotQuests.SpawnPointWander);
+                Quest0 spawnPointQuest = createSpawnPointQuest(allSpawnPoints, "Spawn Point Wander", ConfigController.Config.Questing.BotQuests.SpawnPointWander);
                 if (spawnPointQuest != null)
                 {
                     //LoggingController.LogInfo("Adding quest for going to random spawn points...");
@@ -111,7 +111,7 @@ namespace SPTQuestingBots.Components
                 }
 
                 // Create a quest where initial PMC's can run to your spawn point (not directly to you).
-                Models.Quest spawnRushQuest = null;
+                Models.Quest0 spawnRushQuest = null;
                 SpawnPointParams? playerSpawnPoint = Singleton<GameWorld>.Instance.GetComponent<LocationData>().GetPlayerSpawnPoint();
                 if (playerSpawnPoint.HasValue)
                 {
@@ -134,7 +134,7 @@ namespace SPTQuestingBots.Components
                 }
 
                 // Create a quest for PMC's to go to boss spawn locations early in the raid to hunt them
-                Quest bossHunterQuest = null;
+                Quest0 bossHunterQuest = null;
                 IEnumerable<string> bossZones = getBossSpawnZones();
                 if (bossZones.Any())
                 {
@@ -172,14 +172,14 @@ namespace SPTQuestingBots.Components
         private void LoadCustomQuests()
         {
             // Load all JSON files for custom quests
-            IEnumerable<Quest> customQuests = ConfigController.GetCustomQuests(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
+            IEnumerable<Quest0> customQuests = ConfigController.GetCustomQuests(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
             if (!customQuests.Any())
             {
                 return;
             }
 
             LoggingController.LogInfo("Loading custom quests...");
-            foreach (Quest quest in customQuests)
+            foreach (Quest0 quest in customQuests)
             {
                 int objectiveNum = 0;
                 foreach (QuestObjective objective in quest.ValidObjectives.ToArray())
@@ -220,7 +220,7 @@ namespace SPTQuestingBots.Components
             LoggingController.LogInfo("Loading custom quests...found " + customQuests.Count() + " custom quests.");
         }
 
-        private void LoadQuest(Quest quest)
+        private void LoadQuest(Quest0 quest)
         {
             quest.MaxBots = ConfigController.Config.Questing.BotQuests.EFTQuests.MaxBotsPerQuest;
 
@@ -259,7 +259,7 @@ namespace SPTQuestingBots.Components
             }
 
             // Find all quests that have objectives using this trigger
-            Quest[] matchingQuests = BotJobAssignmentFactory.FindQuestsWithZone(trigger.Id);
+            Quest0[] matchingQuests = BotJobAssignmentFactory.FindQuestsWithZone(trigger.Id);
             if (matchingQuests.Length == 0)
             {
                 //LoggingController.LogInfo("No matching quests for trigger " + trigger.Id);
@@ -296,7 +296,7 @@ namespace SPTQuestingBots.Components
             }
 
             // Add a step with the NavMesh position to corresponding objectives in every quest using this zone
-            foreach (Quest quest in matchingQuests)
+            foreach (Quest0 quest in matchingQuests)
             {
                 LoggingController.LogInfo("Found trigger " + trigger.Id + " for quest: " + quest.Name);
 
@@ -328,7 +328,7 @@ namespace SPTQuestingBots.Components
             }
         }
 
-        private void updateEFTQuestObjectives(Models.Quest quest)
+        private void updateEFTQuestObjectives(Models.Quest0 quest)
         {
             if (!quest.IsEFTQuest)
             {
@@ -367,7 +367,7 @@ namespace SPTQuestingBots.Components
             }
         }
 
-        private Models.Quest createGoToPositionQuest(Vector3 position, string questName, QuestSettingsConfig settings)
+        private Models.Quest0 createGoToPositionQuest(Vector3 position, string questName, QuestSettingsConfig settings)
         {
             if (position == null)
             {
@@ -392,7 +392,7 @@ namespace SPTQuestingBots.Components
                 return null;
             }
 
-            Models.Quest quest = new Models.Quest(questName);
+            Models.Quest0 quest = new Models.Quest0(questName);
             QuestSettingsConfig.ApplyQuestSettingsFromConfig(quest, settings);
 
             Models.QuestObjective objective = new Models.QuestObjective(navMeshPosition.Value);
@@ -403,7 +403,7 @@ namespace SPTQuestingBots.Components
             return quest;
         }
 
-        private Models.Quest createSpawnPointQuest(IEnumerable<SpawnPointParams> spawnPoints, string questName, QuestSettingsConfig settings, ESpawnCategoryMask spawnTypes = ESpawnCategoryMask.All)
+        private Models.Quest0 createSpawnPointQuest(IEnumerable<SpawnPointParams> spawnPoints, string questName, QuestSettingsConfig settings, ESpawnCategoryMask spawnTypes = ESpawnCategoryMask.All)
         {
             if (spawnPoints == null)
             {
@@ -427,7 +427,7 @@ namespace SPTQuestingBots.Components
                 return null;
             }
 
-            Models.Quest quest = new Models.Quest(questName);
+            Models.Quest0 quest = new Models.Quest0(questName);
             QuestSettingsConfig.ApplyQuestSettingsFromConfig(quest, settings);
 
             int objNum = 1;

@@ -13,7 +13,7 @@ using SPTQuestingBots.Controllers;
 
 namespace SPTQuestingBots.Models
 {
-    public class Quest
+    public class Quest0
     {
         [JsonProperty("repeatable")]
         public bool IsRepeatable { get; set; } = false;
@@ -69,7 +69,7 @@ namespace SPTQuestingBots.Models
         public string Name => Template?.Name ?? name;
         public string TemplateId => Template?.TemplateId ?? "";
         public bool IsEFTQuest => Template != null;
-        
+
         // Return all objectives in the quest
         public ReadOnlyCollection<QuestObjective> AllObjectives => new ReadOnlyCollection<QuestObjective>(objectives);
         public int NumberOfObjectives => AllObjectives.Count;
@@ -78,17 +78,17 @@ namespace SPTQuestingBots.Models
         public IEnumerable<QuestObjective> ValidObjectives => AllObjectives.Where(o => o.GetFirstStepPosition() != null);
         public int NumberOfValidObjectives => ValidObjectives.Count();
 
-        public Quest()
+        public Quest0()
         {
 
         }
 
-        public Quest(string _name) : this()
+        public Quest0(string _name) : this()
         {
             name = _name;
         }
 
-        public Quest(RawQuestClass template) : this()
+        public Quest0(RawQuestClass template) : this()
         {
             Template = template;
         }
@@ -105,12 +105,12 @@ namespace SPTQuestingBots.Models
 
         public bool CanAssignBot(BotOwner bot)
         {
-            if (!Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
+            if (!StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
             {
                 return false;
             }
 
-            float raidTime = Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds();
+            float raidTime = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.GetElapsedRaidSeconds();
 
             if (RequiredSwitches.Any(s => !isSwitchInCorrectPosition(s.Key, s.Value)))
             {

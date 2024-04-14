@@ -27,7 +27,7 @@ namespace SPTQuestingBots.Helpers
             plantTimeForCondition.Clear();
         }
 
-        public static int GetMinLevel(this Quest quest)
+        public static int GetMinLevel(this Quest0 quest)
         {
             if (minLevelForQuest.ContainsKey(quest.Template?.Id))
             {
@@ -66,7 +66,7 @@ namespace SPTQuestingBots.Helpers
                     {
                         // Find the required quest
                         string preReqQuestID = conditionQuest.target;
-                        Quest preReqQuest = BotJobAssignmentFactory.FindQuest(preReqQuestID);
+                        Quest0 preReqQuest = BotJobAssignmentFactory.FindQuest(preReqQuestID);
                         if (preReqQuest == null)
                         {
                             LoggingController.LogWarning("Cannot find prerequisite quest " + preReqQuestID + " for quest " + quest.Name);
@@ -93,7 +93,7 @@ namespace SPTQuestingBots.Helpers
             return minLevel;
         }
 
-        public static IEnumerable<string> GetAllZoneIDs(this Quest quest)
+        public static IEnumerable<string> GetAllZoneIDs(this Quest0 quest)
         {
             List<string> zoneIDs = new List<string>();
             EQuestStatus eQuestStatus = EQuestStatus.AvailableForFinish;
@@ -108,7 +108,7 @@ namespace SPTQuestingBots.Helpers
             return zoneIDs;
         }
 
-        public static float? FindPlantTime(this Quest quest, string zoneID)
+        public static float? FindPlantTime(this Quest0 quest, string zoneID)
         {
             EQuestStatus eQuestStatus = EQuestStatus.AvailableForFinish;
             if (quest.Template?.Conditions?.ContainsKey(eQuestStatus) == true)
@@ -126,7 +126,7 @@ namespace SPTQuestingBots.Helpers
             return null;
         }
 
-        public static void LocateQuestItems(this Quest quest, IEnumerable<LootItem> allLoot)
+        public static void LocateQuestItems(this Quest0 quest, IEnumerable<LootItem> allLoot)
         {
             EQuestStatus eQuestStatus = EQuestStatus.AvailableForFinish;
             if (quest.Template?.Conditions?.ContainsKey(eQuestStatus) == true)

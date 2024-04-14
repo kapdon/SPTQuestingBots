@@ -10,6 +10,10 @@ using EFT.InventoryLogic;
 using EFT;
 using SPTQuestingBots.Controllers;
 
+using InteractionsHandlerClass = ItemMovementHandler;
+using GClass2536 = GClass2547;
+using StashGridClass = StashGrid;
+
 namespace SPTQuestingBots.Helpers
 {
     public static class ItemHelpers
@@ -76,7 +80,7 @@ namespace SPTQuestingBots.Helpers
                 }
 
                 // Initialize the transation to transfer the key to the bot
-                GStruct414<GClass2782> moveResult = InteractionsHandlerClass.Add(item, locationForItem, inventoryControllerClass, true);
+                SOperationResult12<AddResult> moveResult = InteractionsHandlerClass.Add(item, locationForItem, inventoryControllerClass, true);
                 if (!moveResult.Succeeded)
                 {
                     LoggingController.LogError("Cannot move key " + item.LocalizedName() + " to inventory of " + botOwner.GetText());
@@ -129,7 +133,7 @@ namespace SPTQuestingBots.Helpers
                     {
                         LoggingController.LogInfo(botOwner.GetText() + " will receive " + item.LocalizedName() + " in its " + slot.ToString() + "...");
 
-                        return new GClass2769(grid, locationInGrid);
+                        return new GridItemAddress(grid, locationInGrid);
                     }
                 }
             }
@@ -158,7 +162,7 @@ namespace SPTQuestingBots.Helpers
             return false;
         }
 
-        public static DependencyGraph<IEasyBundle>.GClass3391 LoadBundle(this Item item)
+        public static DependencyGraph<IEasyBundle>.Bundles LoadBundle(this Item item)
         {
             try
             {
