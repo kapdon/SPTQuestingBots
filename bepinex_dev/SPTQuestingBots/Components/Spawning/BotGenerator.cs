@@ -442,6 +442,8 @@ namespace SPTQuestingBots.Components.Spawning
             {
                 try
                 {
+                    await Task.Delay(20);
+
                     Data8 botProfileData = new Data8(spawnSide, spawnType, botdifficulty, 0f, null);
                     Data1 botSpawnData = await Data1.Create(botProfileData, ibotCreator, bots, botSpawnerClass);
 
