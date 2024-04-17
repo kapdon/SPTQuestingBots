@@ -175,7 +175,7 @@ namespace SPTQuestingBots.Components
         private void LoadCustomQuests()
         {
             // Load all JSON files for custom quests
-            IEnumerable<Quest0> customQuests = ConfigController.GetCustomQuests(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
+            IEnumerable<Quest0> customQuests = ConfigController.GetCustomQuestsLocal(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
             if (!customQuests.Any())
             {
                 return;
