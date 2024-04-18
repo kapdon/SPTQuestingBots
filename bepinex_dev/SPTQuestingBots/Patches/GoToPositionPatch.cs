@@ -18,7 +18,7 @@ namespace SPTQuestingBots.Patches
     public class GoToPositionPatch : ModulePatch
     {
         private static FieldInfo botOwnerField = AccessTools.Field(typeof(StupidPathCalculatorClass), "botOwner_0");
-        private static FieldInfo pathControllerField = AccessTools.Field(typeof(StupidPathCalculatorClass), "gclass422_0");
+        private static FieldInfo pathControllerField = AccessTools.Field(typeof(StupidPathCalculatorClass), "gclass427_0");
 
         protected override MethodBase GetTargetMethod()
         {
