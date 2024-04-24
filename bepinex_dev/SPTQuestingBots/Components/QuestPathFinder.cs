@@ -49,7 +49,7 @@ namespace SPTQuestingBots.Components
             LoggingController.LogInfo("Finding static paths...done.");
         }
 
-        private void findStaticPaths(Models.Quest quest)
+        private void findStaticPaths(Models.Quest0 quest)
         {
             // Check if any waypoints have been defined for the quest
             IList<Vector3> waypoints = quest.GetWaypointPositions();

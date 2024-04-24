@@ -10,12 +10,14 @@ using SPTQuestingBots.Models;
 using UnityEngine;
 
 using PathControllerClass = PathController;
+using GClass423 = GClass428;
 
 namespace SPTQuestingBots.Helpers
 {
     public static class BotPathingHelpers
     {
         private static FieldInfo pathControllerField = AccessTools.Field(typeof(BotMover), "_pathController");
+        private static FieldInfo pathFinderField = AccessTools.Field(typeof(BotMover), "_pathFinder");
         private static FieldInfo pathPointsField = AccessTools.Field(typeof(AbstractPath), "vector3_0");
         private static FieldInfo pathIndexField = AccessTools.Field(typeof(AbstractPath), "int_0");
 
