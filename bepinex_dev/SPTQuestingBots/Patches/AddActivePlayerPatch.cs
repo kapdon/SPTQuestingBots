@@ -27,7 +27,7 @@ namespace SPTQuestingBots.Patches
                 UnityEngine.GameObject.Destroy(oldLocationData);
             }
 
-            Singleton<GameWorld>.Instance.gameObject.AddComponent<Components.LocationData>();
+            Singleton<GameWorld>.Instance.gameObject.GetOrAddComponent<Components.LocationData>();
 
             if (ConfigController.Config.BotSpawns.DelayGameStartUntilBotGenFinishes)
             {
