@@ -245,7 +245,7 @@ namespace SPTQuestingBots.BehaviorExtensions
                 .Where(b => b.BotState == EBotState.Active)
                 .Where(b => !b.IsDead)
                 .Select(b => b.Position)
-                .AddItem(Singleton<GameWorld>.Instance.MainPlayer.Position);
+                .Concat(Singleton<GameWorld>.Instance.AllAlivePlayersList.Where(p => !p.IsAI).Select(p => p.Position));
 
             int botCount = alivePlayerPositions.Count();
             if (botCount == 0)
@@ -273,7 +273,7 @@ namespace SPTQuestingBots.BehaviorExtensions
                 .Where(b => b.BotState == EBotState.Active)
                 .Where(b => !b.IsDead)
                 .Select(b => b.Position)
-                .AddItem(Singleton<GameWorld>.Instance.MainPlayer.Position);
+                .Concat(Singleton<GameWorld>.Instance.AllAlivePlayersList.Where(p => !p.IsAI).Select(p => p.Position));
 
             int botCount = alivePlayerPositions.Count();
             if (botCount == 0)

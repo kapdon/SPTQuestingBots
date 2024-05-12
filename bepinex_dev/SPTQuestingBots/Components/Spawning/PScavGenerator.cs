@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Comfort.Common;
 using EFT;
+using EFT.Bots;
 using EFT.Game.Spawning;
 using HarmonyLib;
 using SPTQuestingBots.Controllers;
@@ -15,7 +16,6 @@ namespace SPTQuestingBots.Components.Spawning
 {
     public class PScavGenerator : BotGenerator
     {
-        private BotDifficulty botDifficulty = BotDifficulty.normal;
         private Dictionary<int, float> botSpawnSchedule = new Dictionary<int, float>();
 
         // Temporarily stores spawn points for bots while trying to spawn several of them
@@ -30,9 +30,6 @@ namespace SPTQuestingBots.Components.Spawning
 
             RetryTimeSeconds = ConfigController.Config.BotSpawns.SpawnRetryTime;
             RespectMaxBotCap = !ConfigController.Config.BotSpawns.AdvancedEFTBotCountManagement;
-
-            Components.LocationData locationData = Singleton<GameWorld>.Instance.GetComponent<Components.LocationData>();
-            botDifficulty = locationData.CurrentRaidSettings.WavesSettings.BotDifficulty.ToBotDifficulty();
 
             setMaxAliveBots();
         }
@@ -107,6 +104,10 @@ namespace SPTQuestingBots.Components.Spawning
                 int botsInGroup = (int)Math.Round(ConfigController.InterpolateForFirstCol(ConfigController.Config.BotSpawns.PScavs.BotsPerGroupDistribution, random.NextDouble()));
                 botsInGroup = (int)Math.Min(botsInGroup, MaxBotsToGenerate);
 
+                // Determine the difficulty for the new bot group
+                Components.LocationData locationData = Singleton<GameWorld>.Instance.GetComponent<Components.LocationData>();
+                BotDifficulty botDifficulty = GetBotDifficulty(locationData.CurrentRaidSettings.WavesSettings.BotDifficulty, ConfigController.Config.BotSpawns.PScavs.BotDifficultyAsOnline);
+
                 // Force the server to generate a player Scav
                 ServerRequestPatch.ForcePScavCount += botsInGroup;
                 Models.BotSpawnInfo group = await GenerateBotGroup(WildSpawnType.assault, botDifficulty, botsInGroup);
@@ -125,8 +126,7 @@ namespace SPTQuestingBots.Components.Spawning
 
             string[] allGeneratedProfileIDs = GetAllGeneratedBotProfileIDs().ToArray();
             IEnumerable<Player> playersToAvoid = Singleton<GameWorld>.Instance.AllAlivePlayersList
-                .Where(p => allGeneratedProfileIDs.Contains(p.ProfileId))
-                .AddItem(Singleton<GameWorld>.Instance.MainPlayer);
+                .Where(p => !p.IsAI || allGeneratedProfileIDs.Contains(p.ProfileId));
 
             // Find a spawn location for the bot group that is as far from other players and bots as possible
             SpawnPointParams[] excludedSpawnpoints = pendingSpawnPoints

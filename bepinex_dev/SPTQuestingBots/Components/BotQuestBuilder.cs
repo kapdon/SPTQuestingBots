@@ -117,8 +117,9 @@ namespace SPTQuestingBots.Components
                 }
 
                 // Create a quest where initial PMC's can run to your spawn point (not directly to you).
-                Models.Quest0 spawnRushQuest = null;
-                SpawnPointParams? playerSpawnPoint = Singleton<GameWorld>.Instance.GetComponent<LocationData>().GetPlayerSpawnPoint();
+                Models.Quest spawnRushQuest = null;
+                SpawnPointParams? playerSpawnPoint = Singleton<GameWorld>.Instance.GetComponent<LocationData>().GetMainPlayerSpawnPoint();
+				
                 if (playerSpawnPoint.HasValue)
                 {
                     spawnRushQuest = createGoToPositionQuest(playerSpawnPoint.Value.Position, "Spawn Rush", ConfigController.Config.Questing.BotQuests.SpawnRush);
