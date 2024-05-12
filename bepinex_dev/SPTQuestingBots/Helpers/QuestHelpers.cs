@@ -29,7 +29,7 @@ namespace SPTQuestingBots.Helpers
 
         public static bool ValidateQuestFiles(string locationId)
         {
-            IEnumerable<Quest> quests = ConfigController.GetCustomQuests(locationId);
+            IEnumerable<Quest0> quests = ConfigController.GetCustomQuests(locationId);
 
             if (!quests.Any())
             {

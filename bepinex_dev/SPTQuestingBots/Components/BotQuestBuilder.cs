@@ -117,7 +117,7 @@ namespace SPTQuestingBots.Components
                 }
 
                 // Create a quest where initial PMC's can run to your spawn point (not directly to you).
-                Models.Quest spawnRushQuest = null;
+                Models.Quest0 spawnRushQuest = null;
                 SpawnPointParams? playerSpawnPoint = Singleton<GameWorld>.Instance.GetComponent<LocationData>().GetMainPlayerSpawnPoint();
 				
                 if (playerSpawnPoint.HasValue)
@@ -184,7 +184,7 @@ namespace SPTQuestingBots.Components
         private void LoadCustomQuests()
         {
             // Load all JSON files for custom quests
-            IEnumerable<Quest0> customQuests = ConfigController.GetCustomQuestsLocal(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
+            IEnumerable<Quest0> customQuests = ConfigController.GetCustomQuests(Singleton<GameWorld>.Instance.GetComponent<LocationData>().CurrentLocation.Id);
             if (!customQuests.Any())
             {
                 return;
