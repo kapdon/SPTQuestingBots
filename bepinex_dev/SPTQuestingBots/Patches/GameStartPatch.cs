@@ -14,6 +14,7 @@ using SPTQuestingBots.Controllers;
 using UnityEngine;
 
 using BotWaveDataClass = BotSpawnWave;
+using StayInTarkov.Coop.SITGameModes;
 
 namespace SPTQuestingBots.Patches
 {
@@ -148,7 +149,8 @@ namespace SPTQuestingBots.Patches
                 timers.Add(timer);
             }
 
-            FieldInfo wavesSpawnScenarioField = AccessTools.Field(Aki.Reflection.Utils.PatchConstants.LocalGameType, "wavesSpawnScenario_0");
+            // FieldInfo wavesSpawnScenarioField = AccessTools.Field(Aki.Reflection.Utils.PatchConstants.LocalGameType, "wavesSpawnScenario_0");
+            FieldInfo wavesSpawnScenarioField = AccessTools.Field(typeof(CoopSITGame), "wavesSpawnScenario_0");
             WavesSpawnScenario wavesSpawnScenario = (WavesSpawnScenario)wavesSpawnScenarioField.GetValue(localGameObj);
 
             //LoggingController.LogInfo("Found WavesSpawnScenario instance");
@@ -163,7 +165,8 @@ namespace SPTQuestingBots.Patches
                 timers.Add(timer);
             }
 
-            FieldInfo bossWavesField = AccessTools.Field(Aki.Reflection.Utils.PatchConstants.LocalGameType, "gclass584_0");
+            // FieldInfo bossWavesField = AccessTools.Field(Aki.Reflection.Utils.PatchConstants.LocalGameType, "gclass584_0");
+            FieldInfo bossWavesField = AccessTools.Field(typeof(CoopSITGame), "BossWaveManager");
             BossWaveManager bossWaves = (BossWaveManager)bossWavesField.GetValue(localGameObj);
 
             //LoggingController.LogInfo("Found Boss Waves instance");
