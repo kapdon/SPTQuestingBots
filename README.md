@@ -314,6 +314,7 @@ Since normal AI Limit mods will disable bots that are questing (which will preve
 
 **Options for *bot_spawns.pmcs* and *bot_spawns.player_scavs*:**
 * **enabled**: If the corresponding bot type will be allowed to spawn. This is **true** by default for both bot types.
+* **min_raid_time_remaining**: The minimum time (in seconds) that must be remaining in the raid for bots of the corresponding bot type to spawn. This is **180** s by default for both PMC's and PScavs.
 * **min_distance_from_players_initial**: The minimum distance (in meters) that a bot must be from you and other bots when selecting its spawn point. This is used during the first wave of spawns and is **25** m by default. 
 * **min_distance_from_players_during_raid**: The minimum distance (in meters) that a bot must be from you and other bots when selecting its spawn point. This is used after the first wave of spawns.
 * **min_distance_from_players_during_raid_factory**: The minimum distance (in meters) that a bot must be from you and other bots when selecting its spawn point. This is used after the first wave of spawns. However, this is only used for Factory raids instead of **min_distance_from_players_during_raid**.
@@ -367,17 +368,21 @@ Since normal AI Limit mods will disable bots that are questing (which will preve
 **---------- Roadmap (Expect Similar Accuracy to EFT's) ----------**
 
 * **0.5.2** (ETA: Late May)
-    * Add new quest type: hidden-stash running
-    * Add new quest type: blood-thirsty cheater (will be disabled by default)
+    * Improvements with how Questing Bots interacts with SAIN:
+        * Better transitioning between combat and questing
+        * Bug fixes for bots suddenly forgetting about their enemies
+        * Ability to have bots avoid quests in dangerous areas of the map
 * **0.5.3** (ETA: Early June)
+    * Add new quest type: hidden-stash running
     * Add optional quest prerequisite to have at least one item in a list (i.e. a sniper rifle for sniping areas or an encoded DSP for Lighthouse)
     * Add configuration options to overwrite default settings for EFT-based quests and their objectives
-    * Move initial quest-data generation to the server to protect for mods that add lots of quests (like QuestManiac)
 * **0.6.0** (ETA: Late July)
     * Separate spawning system into a separate mod
+* **Backlog**
+    * Move initial quest-data generation to the server to protect for mods that add lots of quests (like QuestManiac)
+    * Add new quest type: blood-thirsty cheater (will be disabled by default)
 * **Not Planned**
     * Add waypoints to have PMC's path around dangerous spots in the map or in very open areas
-    * Improve PMC senses to dissuade them from going to areas where many bots have died. Might require interaction with SAIN; TBD.
 
 **---------- Credits ----------**
 
