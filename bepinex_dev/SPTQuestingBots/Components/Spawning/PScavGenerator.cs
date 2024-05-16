@@ -115,7 +115,7 @@ namespace SPTQuestingBots.Components.Spawning
                 // Set the minimum and maximum spawn times for the PScav group
                 float minTimeRemaining = ConfigController.Config.BotSpawns.PScavs.MinRaidTimeRemaining;
                 group.RaidETRangeToSpawn.Min = botSpawnSchedule[GeneratedBotCount];
-                group.RaidETRangeToSpawn.Max = Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds - minTimeRemaining;
+                group.RaidETRangeToSpawn.Max = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds - minTimeRemaining;
 
                 return group;
             };

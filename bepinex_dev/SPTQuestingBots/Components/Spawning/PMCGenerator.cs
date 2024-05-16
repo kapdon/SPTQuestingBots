@@ -89,7 +89,7 @@ namespace SPTQuestingBots.Components.Spawning
 
                 // Set the maximum spawn time for the PMC group
                 float minTimeRemaining = ConfigController.Config.BotSpawns.PMCs.MinRaidTimeRemaining;
-                group.RaidETRangeToSpawn.Max = Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds - minTimeRemaining;
+                group.RaidETRangeToSpawn.Max = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds - minTimeRemaining;
 
                 return group;
             };
