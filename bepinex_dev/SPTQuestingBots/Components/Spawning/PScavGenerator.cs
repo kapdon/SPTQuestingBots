@@ -175,7 +175,7 @@ namespace SPTQuestingBots.Components.Spawning
                 throw new InvalidOperationException(locationID + " not found in Scav-raid settings data from server.");
             }
 
-            float originalEscapeTime = Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds;
+            float originalEscapeTime = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds;
             int totalPScavs = (int)(locationData.CurrentLocation.MaxPlayers * ConfigController.Config.BotSpawns.PScavs.FractionOfMaxPlayers);
 
             // Parse the SPT raid-time-reduction settings
@@ -251,12 +251,12 @@ namespace SPTQuestingBots.Components.Spawning
 
         private float getRaidTimeRemainingFraction()
         {
-            if (Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
+            if (StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
             {
-                return Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRaidTimeRemainingFraction();
+                return StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.GetRaidTimeRemainingFraction();
             }
 
-            return (float)Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.RaidTimeRemainingFraction;
+            return (float)StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.RaidTimeRemainingFraction;
         }
     }
 }

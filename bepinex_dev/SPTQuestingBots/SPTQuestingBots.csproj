@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManagedAssembliesPath>..\..\..\SIT-Mod-Ports\References\</ManagedAssembliesPath>
+    <ManagedAssembliesPath>..\..\..\StayInTarkov.Client\References\</ManagedAssembliesPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">

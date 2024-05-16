@@ -4,9 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Aki.Reflection.Patching;
+using StayInTarkov;
 using EFT;
 using SPTQuestingBots.Controllers;
+using StayInTarkov.Coop.SITGameModes;
 
 namespace SPTQuestingBots.Patches
 {

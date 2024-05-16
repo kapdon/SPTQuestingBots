@@ -12,6 +12,7 @@ using SPTQuestingBots.Helpers;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 namespace SPTQuestingBots.BotLogic.Objective
 {
     public class UnlockDoorAction : BehaviorExtensions.GoToPositionAbstractAction

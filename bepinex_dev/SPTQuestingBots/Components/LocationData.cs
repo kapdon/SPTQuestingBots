@@ -32,7 +32,7 @@ namespace SPTQuestingBots.Components
         private Dictionary<Door, Vector3> doorInteractionPositions = new Dictionary<Door, Vector3>();
         private float maxExfilPointDistance = 0;
 
-        public bool IsScavRun => Aki.SinglePlayer.Utils.InRaid.RaidChangesUtil.IsScavRaid;
+        public bool IsScavRun => StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.IsScavRaid;
 
         private void Awake()
         {
@@ -704,7 +704,7 @@ namespace SPTQuestingBots.Components
                 return;
             }
 
-            if (!Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
+            if (!StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
             {
                 return;
             }

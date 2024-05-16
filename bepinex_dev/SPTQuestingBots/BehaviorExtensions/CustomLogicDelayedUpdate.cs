@@ -12,6 +12,7 @@ using EFT.Interactive;
 using HarmonyLib;
 using SPTQuestingBots.Controllers;
 using SPTQuestingBots.Helpers;
+using StayInTarkov;
 using UnityEngine;
 
 namespace SPTQuestingBots.BehaviorExtensions
