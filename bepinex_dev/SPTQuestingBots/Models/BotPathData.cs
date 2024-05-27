@@ -27,6 +27,7 @@ namespace SPTQuestingBots.Models
         public float DistanceToTarget => Vector3.Distance(bot.Position, TargetPosition);
 
         private BotOwner bot;
+        private List<Vector3[]> previousPaths = new List<Vector3[]>();
         
         public BotPathData(BotOwner botOwner) : base()
         {
@@ -43,6 +44,7 @@ namespace SPTQuestingBots.Models
             if (force)
             {
                 requiresUpdate = true;
+                previousPaths.Clear();
                 reason = BotPathUpdateNeededReason.Force;
             }
 
@@ -53,6 +55,7 @@ namespace SPTQuestingBots.Models
                 ReachDistance = reachDistance;
 
                 requiresUpdate = true;
+                previousPaths.Clear();
                 reason = BotPathUpdateNeededReason.NewTarget;
             }
 
@@ -61,6 +64,23 @@ namespace SPTQuestingBots.Models
             {
                 if (Status == UnityEngine.AI.NavMeshPathStatus.PathInvalid)
                 {
+                    Vector3? navMeshPosition = Singleton<GameWorld>.Instance.GetComponent<Components.LocationData>().FindNearestNavMeshPosition(bot.Position, 2);
+                    if (!navMeshPosition.HasValue)
+                    {
+                        LoggingController.LogError("Cannot find NavMesh position for " + bot.GetText());
+                    }
+                    else
+                    {
+                        float distance = Vector3.Distance(bot.Position, navMeshPosition.Value);
+                        LoggingController.LogError(bot.GetText() + " has an invalid path and is " + distance + "m from the NavMesh");
+
+                        if (distance > 0.05)
+                        {
+                            LoggingController.LogError("Teleporting " + bot.GetText() + " to nearest NavMesh position...");
+                            bot.GetPlayer.Teleport(navMeshPosition.Value);
+                        }
+                    }
+
                     requiresUpdate = true;
                     reason = BotPathUpdateNeededReason.IncompletePath;
                 }
@@ -92,7 +112,7 @@ namespace SPTQuestingBots.Models
 
             if (requiresUpdate)
             {
-                updateCorners(target);
+                updateCorners(target, reason == BotPathUpdateNeededReason.IncompletePath);
             }
 
             return reason;
@@ -108,7 +128,7 @@ namespace SPTQuestingBots.Models
             return Vector3.Distance(bot.Position, Corners.Last());
         }
 
-        private void updateCorners(Vector3 target)
+        private void updateCorners(Vector3 target, bool ignoreDuplicates = false)
         {
             StartPosition = bot.Position;
 
@@ -149,6 +169,29 @@ namespace SPTQuestingBots.Models
                 }
             }
 
+            // TODO: This needs a lot more testing and optimization before it can be released
+            // If the current and proposed paths have already been calculated, do not update the bot's path to avoid getting stuck in infinite loops
+            /*Vector3[] newCorners = corners.Skip(1).ToArray();
+            Vector3[] currentCorners = Corners.Skip(1).ToArray();
+
+            if (previousPaths.Any(p => p.IsSamePath(newCorners)))
+            {
+                if (ignoreDuplicates && !newCorners.IsSamePath(currentCorners) && previousPaths.Any(p => p.IsSamePath(currentCorners)))
+                {
+                    LoggingController.LogWarning("Ignoring duplicate path: " + string.Join(", ", corners.Select(c => c.ToString())));
+                    LoggingController.LogWarning("Current path: " + string.Join(", ", Corners.Select(c => c.ToString())));
+                    return;
+                }
+            }
+            else
+            {
+                if (newCorners.Length > 0)
+                {
+                    //LoggingController.LogInfo("Found new path: " + string.Join(", ", corners.Select(c => c.ToString())));
+                    previousPaths.Add(newCorners);
+                }
+            }*/
+            
             SetCorners(corners);
         }
     }

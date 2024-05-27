@@ -59,6 +59,9 @@ namespace SPTQuestingBots
                 new Patches.AirdropLandPatch().Enable();
                 new Patches.ServerRequestPatch().Enable();
                 new Patches.CheckLookEnemyPatch().Enable();
+
+                // This should be fixed with SAIN 2.2.5.2, and it's only an issue with the debug version of BigBrain
+                //new Patches.BotStandbyBugFixPatch().Enable();
                 
                 if (ConfigController.Config.BotSpawns.Enabled)
                 {
@@ -73,17 +76,14 @@ namespace SPTQuestingBots
                         new Patches.InitBossSpawnLocationPatch().Enable();
                     }
                     
-                    if (ConfigController.Config.BotSpawns.LimitInitialBossSpawns.Enabled)
-                    {
-                        new Patches.BossLocationSpawnActivatePatch().Enable();
-                    }
-
                     if (ConfigController.Config.BotSpawns.AdvancedEFTBotCountManagement)
                     {
                         new Patches.GetListByZonePatch().Enable();
                         new Patches.ExceptAIPatch().Enable();
                         new Patches.BotDiedPatch().Enable();
-                        new Patches.TryToSpawnInZoneAndDelayPatch().Enable();
+
+                        // Only needed for extra logging
+                        //new Patches.TryToSpawnInZoneAndDelayPatch().Enable();
                     }
 
                     Logger.LogInfo("Bot spawning is enabled. Adjusting PMC conversion chances...");
