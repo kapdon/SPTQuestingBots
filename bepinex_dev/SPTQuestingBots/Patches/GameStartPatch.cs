@@ -49,7 +49,7 @@ namespace SPTQuestingBots.Patches
                 return;
             }
 
-            FieldInfo wavesSpawnScenarioField = AccessTools.Field(typeof(LocalGame), "wavesSpawnScenario_0");
+            FieldInfo wavesSpawnScenarioField = AccessTools.Field(typeof(CoopSITGame), "wavesSpawnScenario_0");
             WavesSpawnScenario wavesSpawnScenario = (WavesSpawnScenario)wavesSpawnScenarioField.GetValue(localGameObj);
 
             if (wavesSpawnScenario?.SpawnWaves == null)
